@@ -73,6 +73,15 @@ def to_save_or_not_to_save(answer)
   end
 end
 
+def play_song
+  file = './lib/song.mp3'
+  pid = fork{ exec 'afplay', file }
+end
+
+def stop_playing_song
+  pid = fork{exec 'killall afplay'}
+end
+
 ###Helper Methods###
 def to_save
     playlist_id = Playlist.find_by(name: "#{self.user_name}'s playlist").id
