@@ -5,26 +5,25 @@ game = Rubyoke.new
 
 game.greeting
 
+game.main_menu
+
+menu_selection = gets.chomp
+
 game.create_playlist
 
-game.artist_song?
 
-game.create_song
+if menu_selection == "1"
+  game.sing_along
+end
 
-game.store_lyrics
 
-game.display_lyrics
 
-game.play_song
-
-sleep(60)
-
-game.stop_playing_song
+# sleep(60)
+#
+# game.stop_playing_song
 
 banana = game.save_to_playlist?
 
 game.to_save_or_not_to_save(banana)
 
 binding.pry
-
-# puts "HELLO WORLD"
