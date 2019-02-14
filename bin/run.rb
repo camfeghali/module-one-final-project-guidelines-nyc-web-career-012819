@@ -45,11 +45,11 @@ while playing == true
     end
   elsif menu_selection == 2
     game.show_playlist
-    puts "ENTER 5 FOR MAIN MENU"
-    puts "ENTER 6 TO DELETE SONG FROM PLAYLIST"
+    puts "ENTER M FOR MAIN MENU"
+    puts "ENTER D TO DELETE SONG FROM PLAYLIST"
 
-    menu_selection = gets.chomp.to_i
-      if menu_selection == 6
+    menu_selection = gets.chomp.downcase
+      if menu_selection == "d"
         puts "Enter name of the song you want to delete"
         song_name = gets.chomp
         # binding.pry
@@ -57,7 +57,7 @@ while playing == true
         game.show_playlist
       end
 
-  elsif menu_selection == 5
+  elsif menu_selection == "m"
     game.main_menu
     menu_selection = gets.chomp.to_i
   elsif menu_selection == 3
