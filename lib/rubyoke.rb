@@ -61,7 +61,7 @@ class Rubyoke
   def lyrics_scroll(lyrics)
       lyrics.each_char do |c|
       print c
-      sleep (0.0007)
+      sleep (0.07)
     end
   end
 
