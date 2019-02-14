@@ -1,7 +1,7 @@
 
-
+require_relative '../config/environment'
 class PlayRubyoke
-  require_relative '../config/environment'
+
 
   system "clear"
 
