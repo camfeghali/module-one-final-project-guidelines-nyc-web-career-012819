@@ -34,8 +34,6 @@ class PlayRubyoke
     elsif menu_selection == 2
       game.show_playlist
       puts "ENTER M FOR MAIN MENU OR D TO DELETE A SONG FROM PLAYLIST".rjust(270)
-
-
       menu_selection = gets.chomp.downcase
         if menu_selection == "d"
           puts "Enter name of the song you want to delete".rjust(261).red
@@ -44,7 +42,6 @@ class PlayRubyoke
           game.delete_song(song_name)
           game.show_playlist
         end
-
     elsif menu_selection == "m"
       game.main_menu
       menu_selection = gets.chomp.to_i

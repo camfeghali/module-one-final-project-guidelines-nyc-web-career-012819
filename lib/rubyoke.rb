@@ -44,6 +44,9 @@ class Rubyoke
 #Sing_Along method: store lyrics string in Song table#
   def store_lyrics
     lyrics = LyricsAPI.new(self.song, self.artist).get_lyrics
+    if lyrics == nil
+      binding.pry
+    end
     Song.update(Song.find_by(name: self.song).id, lyrics: lyrics)
   end
 

@@ -18,6 +18,7 @@ class LyricsAPI
   def get_lyrics
     url = "https://private-anon-5fa207b84f-lyricsovh.apiary-proxy.com/v1/"
     full_url = "#{url}#{artist_url}/#{song_url}"
+    # binding.pry
     response = RestClient.get(full_url)
     JSON.parse(response)["lyrics"]
   end
