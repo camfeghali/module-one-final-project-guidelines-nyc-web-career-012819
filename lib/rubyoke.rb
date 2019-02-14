@@ -71,8 +71,10 @@ class Rubyoke
   def to_save_or_not_to_save(answer)
     if answer == true
        self.to_save
+       self.main_menu
     else
       self.not_to_save
+      self.main_menu
     end
   end
 
@@ -146,8 +148,6 @@ class Rubyoke
   def not_to_save
     system "clear"
     puts "                Ok, enter 1 to pick a new song".upcase
-    # puts "              OR"
-    # puts "    ENTER 5 FOR MAIN MENU"
   end
 
 
