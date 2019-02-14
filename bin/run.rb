@@ -1,3 +1,5 @@
-require_relative "../lib/play_rubyoke.rb"
+# require_relative '../config/environment'
 
-PlayRubyoke.new
+require_relative "../lib/play.rb"
+
+Rubyoke.new
