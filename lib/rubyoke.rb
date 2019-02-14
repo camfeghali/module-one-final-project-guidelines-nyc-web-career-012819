@@ -8,7 +8,6 @@ class Rubyoke
     puts "WELCOME TO RUBYOKE!".rjust(248)
     puts "WHAT'S YOUR NAME?".rjust(247)
     self.user_name = gets.chomp.strip.downcase
-    # system "clear"
   end
 
 #Display the main menu#
@@ -25,7 +24,6 @@ class Rubyoke
   def create_playlist
     playlist_name = "#{self.user_name.downcase}'s playlist"
     Playlist.find_or_create_by(name: playlist_name)
-    # system "clear"
   end
 
 #Sing_Along method: Asks for artist and song name#
@@ -58,10 +56,8 @@ class Rubyoke
 
   #Lyrics scroll#
   def lyrics_scroll(lyrics)
-
       lyrics.each_char do |c|
       print c
-      # timer = c.length/10
       sleep (0.0007)
     end
   end
@@ -104,31 +100,19 @@ class Rubyoke
 
 ### Menu Methods ###
   def sing_along
-
     play = nil
-
     self.artist_song?
-
     self.create_song
-
     self.store_lyrics
-
-
-
     self.play_song
     self.display_lyrics
     puts "\nHit X to got back to menu\n".rjust(245).red
-
     play = gets.chomp.downcase
     if play == "x"
       self.stop_playing_song
     end
     self.to_save_or_not_to_save(self.save_to_playlist?)
   end
-
-  # def get_my_song_ids
-  #   Tracklist.all.map{|track| track.song_id}
-  # end
 
   def get_my_songs_ids
     Tracklist.all.where("playlist_id = #{self.get_user_playlist_id}").map do |track| track.song_id end.uniq
@@ -147,27 +131,23 @@ class Rubyoke
 
   #Playlist method#
   def delete_song(song_name)
-    # binding.pry
     Tracklist.delete(Tracklist.all.find_by(song_id: gets_song_id_by_name(song_name)).id)
   end
 
   def gets_song_id_by_name(name)
-    # binding.pry
     Song.all.find_by(name: name).id
   end
+
 ###Helper Methods###
   def to_save
       playlist_id = Playlist.find_by(name: "#{self.user_name}'s playlist").id
       song_id = Song.find_by(name: "#{self.song}").id
-      # binding.pry
       Tracklist.create(playlist_id: playlist_id, song_id: song_id)
       system "clear"
   end
 
   def not_to_save
     system "clear"
-    puts "                Ok, enter 1 to pick a new song".upcase
+    puts "Ok, enter 1 to pick a new song".upcase.rjust(253)
   end
-
-
 end
