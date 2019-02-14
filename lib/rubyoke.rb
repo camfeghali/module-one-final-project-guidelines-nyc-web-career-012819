@@ -5,32 +5,36 @@ class Rubyoke
 
 #Greets the user#
   def greeting
-    puts "                        WELCOME TO RUBYOKE!"
-    puts "                        WHAT'S YOUR NAME?"
+    puts "WELCOME TO RUBYOKE!".rjust(248)
+    puts "WHAT'S YOUR NAME?".rjust(247)
     self.user_name = gets.chomp.strip.downcase
-    system "clear"
+    # system "clear"
   end
 
 #Display the main menu#
   def main_menu
-    puts "            HEY #{self.user_name.upcase}! WHAT WOULD YOU LIKE TO DO ?  (pick a number and hit ENTER) "
-    puts "                        1 - SING ALONG                       "
-    puts "                        2 - SEE MY PLAYLIST                  "
-    puts "                        3 - LEAVE RUBYOKE                    "
+    system "clear"
+    puts_rubyoke
+    puts "HEY #{self.user_name.upcase}! WHAT WOULD YOU LIKE TO DO ?  (pick a number and hit ENTER) ".rjust(277)
+    puts "1 - SING ALONG".rjust(247)
+    puts "2 - SEE MY PLAYLIST".rjust(252)
+    puts "3 - LEAVE RUBYOKE".rjust(250)
   end
 
 #Create a playlist for current user#
   def create_playlist
     playlist_name = "#{self.user_name.downcase}'s playlist"
     Playlist.find_or_create_by(name: playlist_name)
-    system "clear"
+    # system "clear"
   end
 
 #Sing_Along method: Asks for artist and song name#
   def artist_song?
-    puts "                    Who's the artist?".upcase
+    system "clear"
+    puts_rubyoke
+    puts "Who's the artist?".upcase.rjust(250)
     self.artist = gets.chomp.strip
-    puts "                Which song would you like to hear?".upcase
+    puts "Which song would you like to hear?".upcase.rjust(258)
     self.song = gets.chomp.strip
   end
 
@@ -49,14 +53,25 @@ class Rubyoke
   def display_lyrics
     lyrics = Song.find_by(name: self.song).lyrics
     system "clear"
-    puts lyrics
+    lyrics_scroll(lyrics)
+  end
+
+  #Lyrics scroll#
+  def lyrics_scroll(lyrics)
+
+      lyrics.each_char do |c|
+      print c
+      # timer = c.length/10
+      sleep (0.0007)
+    end
   end
 
 #Sing_Along method: returns true or false for to_save_or_not_to_save method#
   def save_to_playlist?
     system "clear"
-    puts "                Would you like to add this song your playlist?"
-    puts "                                       yes/no"
+    puts_rubyoke
+    puts "Would you like to add this song your playlist?".rjust(262)
+    puts "yes/no".rjust(244)
     response = gets.chomp.downcase
     if response == "yes"
       true
@@ -79,7 +94,7 @@ class Rubyoke
   end
 
   def play_song
-    file = './lib/song.mp3'
+    file = './lib/dear_friends.mp3'
     pid = fork{ exec 'afplay', file }
   end
 
@@ -98,11 +113,12 @@ class Rubyoke
 
     self.store_lyrics
 
-    self.display_lyrics
 
-    puts "Hit X to stop playing song"
 
     self.play_song
+    self.display_lyrics
+    puts "\nHit X to got back to menu\n".rjust(245).red
+
     play = gets.chomp.downcase
     if play == "x"
       self.stop_playing_song
@@ -123,17 +139,20 @@ class Rubyoke
   end
 
   def show_playlist
+    system "clear"
+    puts_rubyoke
     Song.all.where(id: self.get_my_songs_ids).map do |song|
-        puts "#{song.name},".capitalize + " by " + "#{song.artist}".capitalize end
+        puts ("#{song.name},".capitalize + " by " + "#{song.artist}".capitalize).rjust(250) end
   end
 
   #Playlist method#
   def delete_song(song_name)
     # binding.pry
-    Tracklist.delete(Tracklist.all.find_by(song_id: gets_song_id_by_name(song_name).id))
+    Tracklist.delete(Tracklist.all.find_by(song_id: gets_song_id_by_name(song_name)).id)
   end
 
   def gets_song_id_by_name(name)
+    # binding.pry
     Song.all.find_by(name: name).id
   end
 ###Helper Methods###

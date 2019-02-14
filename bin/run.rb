@@ -1,24 +1,11 @@
-puts "
-
-
-                          ___      __             __
-                         / _ \__ __/ /  __ _____  / /_____
-                        / , _/ // / _ \/ // / _ \/  '_/ -_)
-                       /_/|_|\_,_/_.__/\_, /\___/_/\_\\__/
-                                      /___/                           "
-
-
-
-
 
 
 
 require_relative '../config/environment'
 
-# playing = true
-# while playing = true
-#
-# end
+system "clear"
+
+puts_rubyoke
 
 playing = true
 
@@ -45,13 +32,13 @@ while playing == true
     end
   elsif menu_selection == 2
     game.show_playlist
-    puts "ENTER M FOR MAIN MENU"
-    puts "ENTER D TO DELETE SONG FROM PLAYLIST"
+    puts "ENTER M FOR MAIN MENU OR D TO DELETE A SONG FROM PLAYLIST".rjust(270)
+
 
     menu_selection = gets.chomp.downcase
       if menu_selection == "d"
-        puts "Enter name of the song you want to delete"
-        song_name = gets.chomp
+        puts "Enter name of the song you want to delete".rjust(261).red
+        song_name = gets.chomp.downcase
         # binding.pry
         game.delete_song(song_name)
         game.show_playlist
@@ -61,7 +48,8 @@ while playing == true
     game.main_menu
     menu_selection = gets.chomp.to_i
   elsif menu_selection == 3
-    puts "                            GOODBYE!"
+    system "clear"
+    puts_goodbye
     exit!
   end
 
