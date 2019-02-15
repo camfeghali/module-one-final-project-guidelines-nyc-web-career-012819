@@ -1,3 +1,4 @@
+require 'thread'
 
 class Rubyoke
 
@@ -44,24 +45,21 @@ class Rubyoke
 #Sing_Along method: store lyrics string in Song table#
   def store_lyrics
     lyrics = LyricsAPI.new(self.song, self.artist).get_lyrics
-    if lyrics == nil
-      binding.pry
-    end
     Song.update(Song.find_by(name: self.song).id, lyrics: lyrics)
   end
 
 #Displays lyrics string#
   def display_lyrics
-    lyrics = Song.find_by(name: self.song).lyrics
-    system "clear"
-    lyrics_scroll(lyrics)
+      lyrics = Song.find_by(name: self.song).lyrics
+      system "clear"
+      lyrics_scroll(lyrics)
   end
 
   #Lyrics scroll#
   def lyrics_scroll(lyrics)
       lyrics.each_char do |c|
       print c
-      sleep (0.07)
+      sleep (0.09)
     end
   end
 
@@ -93,6 +91,7 @@ class Rubyoke
   end
 
   def play_song
+
     file = './lib/dear_friends.mp3'
     pid = fork{ exec 'afplay', file }
   end
@@ -105,13 +104,24 @@ class Rubyoke
   def sing_along
     play = nil
     self.artist_song?
+  # rescue RestClient::NotFound
+  #   puts "Sorry, could'nt find that song"
+  #   puts "Hit M to go back to main menu"
+  #   input = gets.chomp.downcase
+  #   if input == "m"
+  #     self.main_menu
+  #     return
+  #   end
     self.create_song
     self.store_lyrics
     self.play_song
-    self.display_lyrics
     puts "\nHit X to got back to menu\n".rjust(245).red
+    lyrics_thread = Thread.new do
+      self.display_lyrics
+    end
     play = gets.chomp.downcase
     if play == "x"
+      lyrics_thread.kill
       self.stop_playing_song
     end
     self.to_save_or_not_to_save(self.save_to_playlist?)
