@@ -22,6 +22,8 @@ while playing == true
 
   game.create_playlist
 
+
+
   if menu_selection == 1
     game.sing_along
     menu_selection = gets.chomp.to_i

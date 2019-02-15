@@ -100,18 +100,14 @@ class Rubyoke
     pid = fork{exec 'killall afplay'}
   end
 
+  def handle_404
+
+  end
+
 ### Menu Methods ###
   def sing_along
     play = nil
     self.artist_song?
-  # rescue RestClient::NotFound
-  #   puts "Sorry, could'nt find that song"
-  #   puts "Hit M to go back to main menu"
-  #   input = gets.chomp.downcase
-  #   if input == "m"
-  #     self.main_menu
-  #     return
-  #   end
     self.create_song
     self.store_lyrics
     self.play_song
